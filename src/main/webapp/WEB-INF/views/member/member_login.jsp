@@ -5,7 +5,7 @@
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>MEMBER LOGIN</title>
-<link rel="stylesheet" href="${ctx}/css/member.css" />
+<link rel="stylesheet" href="${path.ctx}/css/member.css" />
 </head>
 <body>
 <div id="wrapper">

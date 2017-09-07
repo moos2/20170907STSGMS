@@ -1,13 +1,12 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <header>
-<jsp:include page="../common/navbar.jsp"/>
 </header>
       <div class="container">    
           <div class="jumbotron">
             <div class="row">
                 <div class="col-md-3 col-xs-12 col-sm-6 col-lg-3">
                   <div class="thumbnail text-center photo_view_postion_b" >
-                    <img id="profileBtn" src="${img}/shepard.jpg" alt="stack photo" class="img">
+                    <img id="profileBtn" src="${path.img}/shepard.jpg" alt="stack photo" class="img">
                   </div>
                 </div>
                 <div class="col-md-9 col-xs-12 col-sm-6 col-lg-9">

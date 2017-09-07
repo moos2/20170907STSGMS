@@ -28,6 +28,6 @@ public class AuthController {
 	public String login() {
 		logger.info("AuthController-login으로 진입!");
 		
-		return "public:common/main.tiles";
+		return "auth:common/main.tiles";
 	}
 }

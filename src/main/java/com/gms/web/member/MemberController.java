@@ -12,26 +12,26 @@ public class MemberController {
 		@RequestMapping("/join")
 		public String memberAdd() {
 			logger.info("memberController-join으로 진입!!");
-			return "public:member/member_add.tiles";
+			return "auth:member/member_add.tiles";
 		}
 		@RequestMapping("/list")
 		public String memberList() {
 			logger.info("memberController-list으로 진입!!");
-			return "member/member_list";
+			return "auth:member/member_list.tiles";
 		}
 		@RequestMapping("/detail")
 		public String memberDetail() {
 			logger.info("memberController-detail으로 진입!!");
-			return "member/member_detail";
+			return "auth:member/member_detail.tiles";
 		}
 		@RequestMapping("/update")
 		public String memberUpdate() {
 			logger.info("memberController-update으로 진입!!");
-			return "member/member_update";
+			return "auth:member/member_update.tiles";
 		}
 		@RequestMapping("/delete")
 		public String memberDelete() {
 			logger.info("memberController-delete으로 진입!!");
-			return "member/member_delete";
+			return "auth:member/member_delete.tiles";
 		}
 	}
