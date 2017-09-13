@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+  <!-- 
+	public String insert(Map<?,?> map);
+	public List<?> selectAll(Command cmd); 
+	public List<?> selectByName(Command cmd);
+	public StudentDTO selectById(Command cmd);
+	public String count();
+	public String update(Command cmd);
+	public String delete(Command cmd);
+	public MemberDTO login(Command cmd);
+	
+	method 이름이 id 이름과 동일해야 한다.
+	return이 returntype과 같은 역활이다.
+	#{}의 역활은 model 2에서 사용한 ?와 같은 역할은 한다. 따라서 싱글쿼터가 포함되어 있다.
+	${}은 싱글쿼터가 포함되어 있지 않다.
+	 -->
+  
+<mapper namespace="com.gms.web.mapper.MemberMapper">
+<select id="count" resultType="string">
+	select count(*) as count from member
+</select>
+
+<select id="login" resultType="com.gms.web.member.MemberDTO" parameterType="com.gms.web.command.CommandDTO">
+	<!-- 아스타를 찍지말고 컬럼명을 하나씩 다 적어주는게 유지보수에 좋다. -->
+	select member_id, name, password, ssn, regdate, phone, email, profile from member where member_id like #{search}
+</select>
+
+<select id="selectAll" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
+	select k.* 
+	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b) k 
+	where num between #{startRow} and #{endRow}  
+</select>
+
+<select id="selectByName" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
+ 	select k.* 
+	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b where name like '%${search}%') k 
+	where num between #{startRow} and #{endRow} 
+</select>
+</mapper>

@@ -12,6 +12,9 @@
 		<hr/>
 		<div id="container">
 			<form id="join_form">
+				<div>
+					<h1 style="color: red;text-align: center">${result}</h1>
+				</div>
 				<fieldset>
 				<legend>Join information:</legend>
 				<span id="join_id">ID: </span>

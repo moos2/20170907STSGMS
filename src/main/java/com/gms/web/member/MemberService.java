@@ -11,8 +11,8 @@ public interface MemberService {
 	public List<?> list(CommandDTO cmd); //목록을 가져와서 보여주기
 	public List<?> findByName(CommandDTO cmd);
 	public StudentDTO findById(CommandDTO cmd);
-	public String count(CommandDTO cmd);
+	public String count();
 	public String modify(CommandDTO cmd);
 	public String remove(CommandDTO cmd);
-	public Map<String, Object> login(MemberDTO bean);
+	public Map<String, Object> login(CommandDTO cmd);
 }

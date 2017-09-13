@@ -4,21 +4,21 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.gms.web.command.CommandDTO;
 import com.gms.web.grade.MajorDTO;
+import com.gms.web.mapper.MemberMapper;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-	public static MemberServiceImpl instance = new MemberServiceImpl();
-	
-	public static MemberServiceImpl getInstance() {
-		return instance;
-	}
-	private MemberServiceImpl() {}
-
-	@SuppressWarnings("unchecked")
+	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
+	@Autowired MemberMapper mapper;
+	@Autowired CommandDTO cmd;
+	@Autowired MemberDTO member;
 	@Override
 	public String addMember(Map<String, Object> map) {
 		System.out.println("member service impl진입");
@@ -31,25 +31,28 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public String count(CommandDTO cmd) {
-		return null;
+	public String count() {
+		logger.info("count is{}","entered");
+		String count=mapper.count();
+		logger.info("count is {}",count);
+		return count;
 	}
 
 	@Override
 	public List<?> list(CommandDTO cmd) {
-		System.out.println("serviceimpl에서 pagenum:::::::::"+cmd.getPageNumber());
-		return null;
+		return mapper.selectAll(cmd);
 	}
 
 	@Override
 	public StudentDTO findById(CommandDTO cmd) {
-		return null;
+		return mapper.selectById(cmd);
 	}
 
 	@Override
 	public List<?> findByName(CommandDTO cmd) {
 		System.out.println("memberserviceimple::findbyname:: ("+cmd.getSearch()+")");
-		return null;
+		System.out.println("서비스임플 서치 카운트: "+mapper.selectByName(cmd));
+		return mapper.selectByName(cmd);
 	}
 
 	@Override
@@ -62,17 +65,29 @@ public class MemberServiceImpl implements MemberService {
 		return null;
 	}
 	@Override
-	public Map<String, Object> login(MemberDTO bean) {
+	public Map<String, Object> login(CommandDTO cmdc) {
 		System.out.println("memberserviceimple LOGIN 진입!!!!");
-		System.out.println("넘겨진 아이디와 비밀번호::"+bean.getId()+"////"+bean.getPassword());
+		System.out.println("넘겨진 아이디와 비밀번호::"+cmdc.getSearch()+"////"+cmdc.getPage());
 		Map<String, Object> map =new HashMap<>();
-		CommandDTO cmd=new CommandDTO();
-		cmd.setSearch(bean.getId());
-		MemberDTO m = null;
-		String page = 
-				(m!=null)?(bean.getPassword().equals(m.getPassword()))?"main":"login_fail":"join";
-		map.put("page", page);
-		map.put("user", m);
+		cmd.setSearch(cmdc.getSearch());
+		System.out.println("cmd의 "+cmd.getSearch());
+		
+		member = mapper.login(cmd);
+		
+		if(member!=null) {
+			if(cmdc.getPage().equals(member.getPassword())) {
+			map.put("result", "sucess");
+			map.put("page", "auth:common/main.tiles");
+			} else {
+				map.put("result", "wrong password");
+				map.put("page", "public:common/login.tiles");
+			}
+		}else{
+			map.put("result", "no id");
+			map.put("page", "auth:member/member_add.tiles");
+		}
+		map.put("user", member);
+		logger.info("로그인 결과: {}",map.get("result"));
 		return map;
 	}
 }

@@ -69,51 +69,51 @@ app.main=(function(){
 	var onCreate=function(){
 		setContentView();
 		$('.list-group-item a').eq(0).on('click',function(){
-			app.controller.moveTo("/member","/join");
+			app.controller.moveTo("/member","/member_add");
 		});
 		$('.list-group-item a').eq(1).on('click',function(){
-			app.controller.moveTo("/member","/list");
+			app.member.moveList(1);
 		});
 		$('.list-group-item a').eq(2).on('click',function(){
-			app.controller.moveTo("/member","/detail");
+			app.controller.moveTo("/member","/member_detail");
 		});
 		$('.list-group-item a').eq(3).on('click',function(){
-			app.controller.moveTo("/member","/update");
+			app.controller.moveTo("/member","/member_update");
 		});
 		$('.list-group-item a').eq(4).on('click',function(){
-			app.controller.moveTo("/member","/delete");
+			app.controller.moveTo("/member","/member_delete");
 		});
 		
 		$('.list-group-item a').eq(5).on('click',function(){
-			app.controller.moveTo("/grade","/add");
+			app.controller.moveTo("/grade","/grade_add");
 		});
 		$('.list-group-item a').eq(6).on('click',function(){
-			app.controller.moveTo("/grade","/list");
+			app.controller.moveTo("/grade","/grade_list");
 		});
 		$('.list-group-item a').eq(7).on('click',function(){
-			app.controller.moveTo("/grade","/detail");
+			app.controller.moveTo("/grade","/grade_detail");
 		});
 		$('.list-group-item a').eq(8).on('click',function(){
-			app.controller.moveTo("/grade","/update");
+			app.controller.moveTo("/grade","/grade_update");
 		});
 		$('.list-group-item a').eq(9).on('click',function(){
-			app.controller.moveTo("/grade","/delete");
+			app.controller.moveTo("/grade","/grade_delete");
 		});
 		
 		$('.list-group-item a').eq(10).on('click',function(){
-			app.controller.moveTo("/board","/write");
+			app.controller.moveTo("/board","/board_write");
 		});
 		$('.list-group-item a').eq(11).on('click',function(){
-			app.controller.moveTo("/board","/list");
+			app.controller.moveTo("/board","/board_list");
 		});
 		$('.list-group-item a').eq(12).on('click',function(){
-			app.controller.moveTo("/board","/detail");
+			app.controller.moveTo("/board","/board_detail");
 		});
 		$('.list-group-item a').eq(13).on('click',function(){
-			app.controller.moveTo("/board","/update");
+			app.controller.moveTo("/board","/board_update");
 		});
 		$('.list-group-item a').eq(14).on('click',function(){
-			app.controller.moveTo("/board","/delete");
+			app.controller.moveTo("/board","/board_delete");
 		});
 	};
 	var setContentView=function(){
@@ -168,52 +168,56 @@ app.navbar=(function(){
 	var onCreate=function(){
 		setContentView();
 		$("#home").on('click',function(){
-			app.controller.moveTo("/auth","/login_view");
+			app.controller.moveTo("/common","/main");
+		});
+		
+		$("#logout").on('click',function(){
+			app.controller.moveTo("/common","/home");
 		});
 		
 		  $(".dropdown-menu a").eq(0).on('click',function(){
-			  app.controller.moveTo("/member","/join");
+			  app.controller.moveTo("/member","/member_add");
 		  });
 		  $(".dropdown-menu a").eq(1).on('click',function(){
-			  app.controller.moveTo("/member","/list");
+			  app.member.moveList(1);
 		  });
 		  $(".dropdown-menu a").eq(2).on('click',function(){
-			  app.controller.moveTo("/member","/detail");
+			  app.controller.moveTo("/member","/member_detail");
 		  });
 		  $(".dropdown-menu a").eq(3).on('click',function(){
-			  app.controller.moveTo("/member","/update");
+			  app.controller.moveTo("/member","/member_update");
 		  });
 		  
 		  $(".dropdown-menu a").eq(4).on('click',function(){
-			  app.controller.moveTo("/grade","/add");
+			  app.controller.moveTo("/grade","/grade_add");
 		  });
 		  $(".dropdown-menu a").eq(5).on('click',function(){
-			  app.controller.moveTo("/grade","/list");
+			  app.controller.moveTo("/grade","/grade_list");
 		  });
 		  $(".dropdown-menu a").eq(6).on('click',function(){
-			  app.controller.moveTo("/grade","/detail");
+			  app.controller.moveTo("/grade","/grade_detail");
 		  });
 		  $(".dropdown-menu a").eq(7).on('click',function(){
-			  app.controller.moveTo("/grade","/update");
+			  app.controller.moveTo("/grade","/grade_update");
 		  });
 		  $(".dropdown-menu a").eq(8).on('click',function(){
-			  app.controller.moveTo("/grade","/update");
+			  app.controller.moveTo("/grade","/grade_update");
 		  });
 		  
 		  $(".dropdown-menu a").eq(9).on('click',function(){
-			  app.controller.moveTo("/board","/write");
+			  app.controller.moveTo("/board","/board_write");
 		  });
 		  $(".dropdown-menu a").eq(10).on('click',function(){
-			  app.controller.moveTo("/board","/list");
+			  app.controller.moveTo("/board","/board_list");
 		  });
 		  $(".dropdown-menu a").eq(11).on('click',function(){
-			  app.controller.moveTo("/board","/detail");
+			  app.controller.moveTo("/board","/board_detail");
 		  });
 		  $(".dropdown-menu a").eq(12).on('click',function(){
-			  app.controller.moveTo("/board","/update");
+			  app.controller.moveTo("/board","/board_update");
 		  });
 		  $(".dropdown-menu a").eq(13).on('click',function(){
-			  app.controller.moveTo("/board","/update");
+			  app.controller.moveTo("/board","/board_update");
 		  });
 	};
 	var setContentView=function(){
@@ -246,15 +250,18 @@ app.member=(function(){
 			sessionStorage.setItem('title',$('#detail_title').text());
 			sessionStorage.setItem('phone',$('#detail_phone').text());
 			sessionStorage.setItem('email',$('#detail_email').text());
-			controller.moveTo('member','member_update');
+			app.controller.moveTo('member','member_update');
 		});
 	};
 	var setContentView=function(){
 		alert(':::Member Detail:::');
 	};
-	
+	var moveList=function(pno){
+		location.href=app.path.ctx()+"/member/member_list/"+pno
+	}
 	return{
-		init : init
+		init : init,
+		moveList : moveList
 	};
 })();
 
@@ -269,7 +276,7 @@ app.grade=(function(){
 		
 	};
 	return {
-		init:init
+		init:init,
 	};
 })();
 
@@ -293,35 +300,22 @@ app.controller=(function(){
 		
 	};
 	var moveTo=function(dir,page){
-		location.href=app.path.ctx()+dir+page;
+		location.href=app.path.ctx()+"/common/path"+dir+page;
 	};
 	var list=function(dir,page,pageNumber){
 		location.href=app.path.ctx()+dir+page+pageNumber;
 	};
-	var listPagination=function(){
-		var $pages=$('a#pages').text();
-		alert($pages);
-		var pclick=$("pclick");
-		pclick.addClass("active");
-		$(".active a").eq($pages).on('click',function(){
-			alert("넘어갈 페이지~~~  "+$pages);
-			list('member','member_list',$pages);
-		});
-	};
-	var search=function(){
-		var $searchBtn=$('#searchBtn');
-		$searchBtn.on('click',function(){
-			var $search=$('#search_id').val();
-			alert('입력한 검색어:::::   ' + $search);
-			location.href=app.ctx()+'/'+"member.do?action=search&page=member_list&search="+$search;
-		});
+	var search=function(pno){
+		var $search=$('#search_id').val();
+		alert("검색할 이름: "+$search);
+		location.href=app.path.ctx()+"/member/member_search/"+$search+pno;
 	};
 	var updateStudent=function(id,email){
-		location.href=app.ctx()+"/member.do?action=update&page=member_update&id="+id+"&email="+email;
+		location.href=app.path.ctx()+"/member.do?action=update&page=member_update&id="+id+"&email="+email;
 	};
 	var deleteStudent=function(id){
 		alert('삭제할 id : ' +id);
-		location.href = app.ctx()+'/'+"member.do?action=delete&page=member_list&id="+id;
+		location.href = app.path.ctx()+'/'+"member.do?action=delete&page=member_list&id="+id;
 	};
 	var detailStudent=function(id){
 		alert('조회할 id : '+id);
@@ -339,7 +333,6 @@ app.controller=(function(){
 		updateStudent : updateStudent,
 		deleteStudent : deleteStudent,
 		detailStudent : detailStudent,
-		listPagination : listPagination,
 		logout : logout
 		
 	};

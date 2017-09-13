@@ -7,14 +7,18 @@
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
 	xmlns:tx="http://www.springframework.org/schema/tx"
 	xmlns:util="http://www.springframework.org/schema/util"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
 	xsi:schemaLocation="http://www.springframework.org/schema/jdbc http://www.springframework.org/schema/jdbc/spring-jdbc-4.3.xsd
 		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd
 		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
-
+	<!-- context:annotation-config가 @Autowired를 생성한다. -->
+	<context:annotation-config/>
+	<!-- mvc:annotation-driven태그가 HandlerMapping과 HandlerAdpter를 설정해준다. -->
 	<mvc:annotation-driven />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 	<bean class="org.springframework.web.servlet.view.ContentNegotiatingViewResolver">
@@ -37,6 +41,37 @@
 			</list>
 		</property>
 	</bean>
-	<context:component-scan base-package="com.gms.web" />	
+	<!-- context:componet-scan은 com.gms.web에 있는 정보들을 ()자바에서의)set해주는 것이다.
+	우리는 이 정보들을 호출하여 get방식으로 쓸 것이다. -->
+	<context:component-scan base-package="com.gms.web" />
 		
+	<mybatis-spring:scan base-package="com.gms.web.mapper"/>
+	<context:property-placeholder location="classpath:/config/database.properties"/>
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource">
+		<property name="driverClassName" value="${jdbc.driver}"/>
+		<property name="url" value="${jdbc.url}"/>
+		<property name="username" value="${jdbc.username}"/>
+		<property name="password" value="${jdbc.password}"></property>
+	</bean>
+	<bean id="sqlSessionFactoryBean" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="dataSource" ref="dataSource"/>
+		<property name="mapperLocations" value="classpath*:com/gms/web/mapper/*.xml"></property>
+	</bean>
+	<bean id="sqlSession" class="org.mybatis.spring.SqlSessionTemplate">
+		<constructor-arg ref="sqlSessionFactoryBean"/>
+	</bean>	
+	<bean id="dataSourceTransactionManager" class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
 </beans>
+
+
+
+
+
+
+
+
+
+
