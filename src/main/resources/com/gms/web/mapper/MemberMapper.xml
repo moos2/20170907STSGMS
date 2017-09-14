@@ -20,6 +20,30 @@
 	 -->
   
 <mapper namespace="com.gms.web.mapper.MemberMapper">
+
+<insert id="insert" parameterType="com.gms.web.member.MemberDTO">
+	insert into member(
+		member_id,
+		name,
+		password,
+		ssn,
+		regdate,
+		phone,
+		email,
+		profile
+	)
+	values(
+		#{memberId},
+		#{name},
+		#{password},
+		#{ssn},
+		now(),
+		#{phone},
+		#{email},
+		#{profile}
+	)
+</insert>
+
 <select id="count" resultType="string">
 	select count(*) as count from member
 </select>
@@ -30,14 +54,60 @@
 </select>
 
 <select id="selectAll" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
-	select k.* 
+	select k.*
 	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b) k 
-	where num between #{startRow} and #{endRow}  
+	where num between #{startRow} and #{endRow}
 </select>
 
 <select id="selectByName" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
- 	select k.* 
-	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b where name like '%${search}%') k 
-	where num between #{startRow} and #{endRow} 
+	select k.*
+	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b where t.name like '%${search}%' ) k 
+	where num between #{startRow} and #{endRow}
 </select>
+
+<select id="selectById" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
+SELECT * 
+from student
+where id like '%${column}%'
+</select>
+
+
+<update id="update" parameterType="com.gms.web.member.MemberDTO">
+	update Member set email = #{email} , phone = #{phone} where member_id like #{member_id}
+</update>
+
+
+<delete id="delete"  parameterType="com.gms.web.command.CommandDTO">
+	delete mem,maj from member mem join major maj on mem.member_id like maj.member_id where mem.member_id like #{search}
+</delete>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 </mapper>

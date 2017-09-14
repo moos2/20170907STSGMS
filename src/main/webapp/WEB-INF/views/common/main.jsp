@@ -4,7 +4,7 @@
 <link rel="stylesheet" href="${path.css}/member.css" />
 <head>
 </head>
-<div id ="go_main">${sessionScope.user.name} 님 환영합니다.</div>
+<div id ="go_main">${user.name} 님 환영합니다.</div>
 	 <%-- 
 	 ${10 eq requestScope.val}
 	 페이징 처리할 때 자주 쓰는 비교 연산자이다. 

@@ -8,7 +8,6 @@
 </head>
 <body>
 	<div id="wrapper">
-		<%@ include file="member_head.jsp" %>
 		<hr/>
 		<div id="container">
 			<form id="join_form">
@@ -18,17 +17,19 @@
 				<fieldset>
 				<legend>Join information:</legend>
 				<span id="join_id">ID: </span>
-				<input id="join_id" name="join_id" type="text" value="cost" /><br />
+				<input id="join_id" name="memberId" type="text" value="fast" /><br />
 				<span id="join_pass">PASSWORD: </span>
-				<input id="join_pass" name="join_pass" type="password" placeholder="비밀번호" value="1"/><br />
+				<input id="join_pass" name="password" type="password" placeholder="비밀번호" value="2"/><br />
 				<span id="join_name">NAME: </span>
-				<input id="join_name" name="join_name" type="text" placeholder="이름" value="박비용"/><br />
+				<input id="join_name" name="name" type="text" placeholder="이름" value="빠른발"/><br />
 				<span id="join_birth">생년월일</span>
-				<input id="join_birthday" name="join_birthday"   type="text" value="2000-05-05"/><br />
+				<input id="join_birthday" name="ssn"   type="text" value="900203-1111111"/><br />
+				<span id="join_phone">전화번호</span>
+				<input id="join_phone" name="phone"   type="text" value="010-9595-8989"/><br />
 				<input type="radio" name="gender" value="male" checked/> 남자
 				<input type="radio" name="gender" value="female" /> 여자
 				<br />
-				이메일 <input type="email" name="email" value="cost@test.com"/>
+				이메일 <input type="email" name="email" value="fast@java.com"/>
 				<h3>전 공</h3>
 				<select name="major">
 					<option value="computer" selected>컴퓨터공학</option>
@@ -46,13 +47,11 @@
 				<input type="checkbox" name="subject" value="python" />파이썬<br />
 				<input id="join_yes_btn" name="join_yes_btn" type="submit" value="join"/>
 				<input id="join_no_btn" type="reset" value="cancle"/>
-				<input type="hidden" name="action" value="join" />
-				<input type="hidden" name="page" value="main" />
 				</fieldset>
 			</form>
 		</div>
 	</div>
 </body>
 <script>
-
+app.member.init();
 </script>

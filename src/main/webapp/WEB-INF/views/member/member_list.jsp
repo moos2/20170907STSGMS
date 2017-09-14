@@ -32,14 +32,18 @@
 				<tr>
 				<!-- 돈 같은 숫자를 다룰 때 fmt를 많이 쓴다. pattern에 . 대신에 $등을 넣으면 통화표시를 할 수 있다. -->
 					<td><fmt:formatNumber value="${i.num }" pattern="."/></td>
-					<td><a onclick="controller.detailStudent('${i.id }')">${i.id }</a></td>
+					<td><a onclick="app.controller.detailStudent('${i.id }')">${i.id }</a></td>
 					<td>${i.name }</td>
 					<td>${i.ssn }</td>
 					<td>${i.phone }</td>
 					<td>${i.email }</td>
 					<td>${i.title }</td>
 					<td>${i.regdate }</td>
-					<td>수정/삭제</td>
+					<td>
+					<a onclick="app.controller.updateStudent('${i.id}')">수정</a>
+					/
+					<a onclick="app.controller.deleteStudent('${i.id}')">삭제</a>
+					</td>
 				</tr>
 				</c:forEach>
 			</table>
@@ -61,7 +65,7 @@
 	    							end="${requestScope.endPage}" step="1">
 	    	<c:choose>
 	    		<c:when test="${i.index eq requestScope.pageNumber}">
-	    			<li class="active"><a a onclick="app.member.moveList('${i.index}'" href="#">${i.index}</a></li>
+	    			<li class="active"><a onclick="app.member.moveList('${i.index}'" href="#">${i.index}</a></li>
 	    		</c:when>
 	    		<c:otherwise>
 	    			<li >

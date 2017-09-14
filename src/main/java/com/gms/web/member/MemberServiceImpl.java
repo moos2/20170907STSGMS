@@ -8,71 +8,83 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.gms.web.command.CommandDTO;
 import com.gms.web.grade.MajorDTO;
+import com.gms.web.grade.SubjectDTO;
+import com.gms.web.mapper.GradeMapper;
 import com.gms.web.mapper.MemberMapper;
 
 @Service
+
 public class MemberServiceImpl implements MemberService {
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
-	@Autowired MemberMapper mapper;
+	@Autowired MemberMapper mMapper;
 	@Autowired CommandDTO cmd;
 	@Autowired MemberDTO member;
-	@Override
-	public String addMember(Map<String, Object> map) {
-		System.out.println("member service impl진입");
-		MemberDTO member=(MemberDTO)map.get("member");
-		System.out.println("넘어온 회원의 이름:" + member.toString());
-		List<MajorDTO> list=(List<MajorDTO>)map.get("major");
-		System.out.println("넘어온 수강과목:"+list);
-		
-		return  null;
+	@Autowired MajorDTO major;
+	@Autowired SubjectDTO subj;
+	@Autowired GradeMapper gMapper;
+	
+	@Override @Transactional
+	public int addMember(Map<?, ?> map) {
+		logger.info("member service impl진입");
+		logger.info("넘어온 회원의 이름:" + map);
+		logger.info("넘어온 수강과목:"+map.toString());
+		@SuppressWarnings("unchecked")
+		List<MajorDTO> list=(List<MajorDTO>) map.get("list");
+		member=(MemberDTO) map.get("member");
+		major=(MajorDTO) map.get("major");
+		mMapper.insert(member);
+		gMapper.insertMajor(list);
+		return  0;
 	}
 
 	@Override
 	public String count() {
 		logger.info("count is{}","entered");
-		String count=mapper.count();
+		String count=mMapper.count();
 		logger.info("count is {}",count);
 		return count;
 	}
 
 	@Override
 	public List<?> list(CommandDTO cmd) {
-		return mapper.selectAll(cmd);
+		return mMapper.selectAll(cmd);
 	}
 
 	@Override
 	public StudentDTO findById(CommandDTO cmd) {
-		return mapper.selectById(cmd);
+		return mMapper.selectById(cmd);
 	}
 
 	@Override
 	public List<?> findByName(CommandDTO cmd) {
-		System.out.println("memberserviceimple::findbyname:: ("+cmd.getSearch()+")");
-		System.out.println("서비스임플 서치 카운트: "+mapper.selectByName(cmd));
-		return mapper.selectByName(cmd);
+		logger.info("memberserviceimple::findbyname:: ("+cmd.getSearch()+")");
+		logger.info("서비스임플 서치 카운트: "+mMapper.selectByName(cmd));
+		return mMapper.selectByName(cmd);
 	}
 
 	@Override
-	public String modify(CommandDTO cmd) {
-		return null;
+	public int modify(MemberDTO member) {
+		return mMapper.update(member);
 	}
 
 	@Override
-	public String remove(CommandDTO cmd) {
-		return null;
+	public int remove(CommandDTO cmd) {
+		logger.info("서비스 임플에서 지울 아이디: "+cmd.getSearch());
+		return mMapper.delete(cmd);
 	}
 	@Override
 	public Map<String, Object> login(CommandDTO cmdc) {
-		System.out.println("memberserviceimple LOGIN 진입!!!!");
-		System.out.println("넘겨진 아이디와 비밀번호::"+cmdc.getSearch()+"////"+cmdc.getPage());
+		logger.info("memberserviceimple LOGIN 진입!!!!");
+		logger.info("넘겨진 아이디와 비밀번호::"+cmdc.getSearch()+"////"+cmdc.getPage());
 		Map<String, Object> map =new HashMap<>();
 		cmd.setSearch(cmdc.getSearch());
-		System.out.println("cmd의 "+cmd.getSearch());
+		logger.info("cmd의 "+cmd.getSearch());
 		
-		member = mapper.login(cmd);
+		member = mMapper.login(cmd);
 		
 		if(member!=null) {
 			if(cmdc.getPage().equals(member.getPassword())) {

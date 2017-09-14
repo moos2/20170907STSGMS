@@ -51,7 +51,7 @@
       	</ul>
       	</li>
     </ul>
-    <span class="float-right">${sessionScope.user.name}&nbsp;<a id="logout">로그아웃</a></span>
+    <span class="float-right">${user.name}&nbsp;<a id="logout">로그아웃</a></span>
   </div>
   <script>
   	app.navbar.init();

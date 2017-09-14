@@ -75,8 +75,8 @@ app.main=(function(){
 			app.member.moveList(1);
 		});
 		$('.list-group-item a').eq(2).on('click',function(){
-			app.controller.moveTo("/member","/member_detail");
-		});
+			app.member.moveList(1);
+			});
 		$('.list-group-item a').eq(3).on('click',function(){
 			app.controller.moveTo("/member","/member_update");
 		});
@@ -182,7 +182,7 @@ app.navbar=(function(){
 			  app.member.moveList(1);
 		  });
 		  $(".dropdown-menu a").eq(2).on('click',function(){
-			  app.controller.moveTo("/member","/member_detail");
+			  app.member.moveList(1);
 		  });
 		  $(".dropdown-menu a").eq(3).on('click',function(){
 			  app.controller.moveTo("/member","/member_update");
@@ -238,11 +238,13 @@ app.navbar=(function(){
 
 app.member=(function(){
 	var init=function(){
+		memberAdd();
 		onCreate();
 	};
 	var onCreate=function(){
 		setContentView();
-		$('#updateBtn').on('click',function(){
+		
+	/*	$('#updateBtn').on('click',function(){
 			alert('정보수정 버튼 클릭');
 			//id,title,phone,email;
 			sessionStorage.setItem('name',$('#detail_name').text());
@@ -251,17 +253,26 @@ app.member=(function(){
 			sessionStorage.setItem('phone',$('#detail_phone').text());
 			sessionStorage.setItem('email',$('#detail_email').text());
 			app.controller.moveTo('member','member_update');
-		});
+		});*/
 	};
 	var setContentView=function(){
-		alert(':::Member Detail:::');
+	
 	};
 	var moveList=function(pno){
 		location.href=app.path.ctx()+"/member/member_list/"+pno
 	}
+	
+	var memberAdd=function(){
+		$('#join_yes_btn').on('click',function(){
+			alert("가입완료");
+			$('#join_form').attr('method','post');
+			$('#join_form').attr('action',app.path.ctx()+"/member/add");
+		})
+	}
 	return{
 		init : init,
-		moveList : moveList
+		moveList : moveList,
+		memberAdd : memberAdd
 	};
 })();
 
@@ -297,11 +308,16 @@ app.board=(function(){
 
 app.controller=(function(){
 	var init=function(){
-		
+		updateStudent();
 	};
 	var moveTo=function(dir,page){
 		location.href=app.path.ctx()+"/common/path"+dir+page;
 	};
+	/*var moveUpdate=function(){
+		$('#updateBtn').attr('method','post');
+		$('#updateBtn').attr('action',app.path.ctx()+"/common/path/member/member_update")
+		return true;
+	}*/
 	var list=function(dir,page,pageNumber){
 		location.href=app.path.ctx()+dir+page+pageNumber;
 	};
@@ -310,16 +326,25 @@ app.controller=(function(){
 		alert("검색할 이름: "+$search);
 		location.href=app.path.ctx()+"/member/member_search/"+$search+pno;
 	};
-	var updateStudent=function(id,email){
-		location.href=app.path.ctx()+"/member.do?action=update&page=member_update&id="+id+"&email="+email;
+	var updateStudent=function(){
+		$('#student_update').attr('method','post');
+		$('#updateBtn').on('click',function(){
+			if($('#confirm').val()==$('#origin_password').val()){
+				$('#student_update').attr('action',app.path.ctx()+"/student/update");  
+	        	alert("수정되었습니다.");
+	        }else{
+	        	alert("비밀번호를 확인하세요");
+	        }
+	        return true;
+		})
 	};
 	var deleteStudent=function(id){
 		alert('삭제할 id : ' +id);
-		location.href = app.path.ctx()+'/'+"member.do?action=delete&page=member_list&id="+id;
+		location.href = app.path.ctx()+"/member/delete/"+id;
 	};
 	var detailStudent=function(id){
 		alert('조회할 id : '+id);
-		/*location.href = app.ctx()+'/'+"member.do?action=detail&page=member_detail&id="+id;*/
+		location.href = app.path.ctx()+"/member/detail/"+id;
 	};
 	var logout=function(){
 		  location.href=app.ctx()+'/'+"home.do?action=logout&page=home";
@@ -333,7 +358,8 @@ app.controller=(function(){
 		updateStudent : updateStudent,
 		deleteStudent : deleteStudent,
 		detailStudent : detailStudent,
-		logout : logout
+		logout : logout,
+		init:init
 		
 	};
 })();

@@ -11,14 +11,15 @@
 	               	</div>
 	            </div> 
 				<div class="main-login main-center">
-					<form class="form-horizontal" method="post" action="#">
+					<form name="studentUpdate" id="student_update" class="form-horizontal">
+					<input type="hidden" class="form-control" name="memberId" id="update_id" value="${student.id }" readonly="readonly"/>
 						
 						<div class="form-group">
-							<label for="name" class="cols-sm-2 control-label">ID</label>
+							<label for="name" class="cols-sm-2 control-label">Name</label>
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-user fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="update_id" id="update_id"/>
+									<input type="text" class="form-control" name="name" id="update_name" value="${student.name }" readonly="readonly"/>
 								</div>
 							</div>
 						</div>
@@ -28,7 +29,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-envelope fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="update_email" id="update_email" />
+									<input type="text" class="form-control" name="email" id="update_email" value="${student.email }" />
 								</div>
 							</div>
 						</div>
@@ -38,7 +39,7 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-users fa" aria-hidden="true"></i></span>
-									<input type="text" class="form-control" name="update_phone" id="update_phone"  />
+									<input type="text" class="form-control" name="phone" id="update_phone"  value="${student.phone }"/>
 								</div>
 							</div>
 						</div>
@@ -48,7 +49,8 @@
 							<div class="cols-sm-10">
 								<div class="input-group">
 									<span class="input-group-addon"><i class="fa fa-lock fa-lg" aria-hidden="true"></i></span>
-									<input name="origin_password" id="origin_password" type="password" class="form-control" data-toggle="popover" placeholder="Enter your Password"/>
+									<input name="origin_password" id="or_password" type="password" class="form-control" data-toggle="popover" placeholder="Enter your Password"/>
+									<input type="hidden" id="origin_password" value="${student.password}"/>
 								</div>
 								<span id="passwordInfo" class="hide">
 								    <ul>
@@ -74,12 +76,12 @@
 						</div>
 
 						<div class="form-group ">
-							<button id="updateBtn" type="button" class="btn btn-primary btn-lg btn-block login-button">UPDATE</button>
+							<button id="updateBtn" type="submit" class="btn btn-primary btn-lg btn-block login-button">UPDATE</button>
 						</div>
 					</form>
 				</div>
 			</div>
 		</div>
-<script>
-memberUpdate.init();
-</script>
+		<script>
+		app.controller.init();
+		</script>

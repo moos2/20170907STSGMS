@@ -1,0 +1,57 @@
+--- http://www.mybatis.org/mybatis-3/ko/dynamic-sql.html ---
+
+&& 동적 SQL을 처리하는 방법
+
+1. OGNL 기반의 표현식 (OGNL이란?)
+
+2.	if
+	choose (when, otherwise)
+	trim (where, set)
+	foreach
+
+- if (ex 문자열 검색 기능) 
+* 예문(컬럼에는 *를 쳐서는 안된다. 하나하나 다 풀어줘야 유지보수에 용이하다.)
+<select id="find" 
+     resultType="com.gms.web.Domain"
+     parameterType="com.gms.web.MemberDTO">
+  SELECT id,name,article 
+  FROM BLOG 
+  WHERE state = ‘ACTIVE’ 
+  <if test="id != null">        ---> "name != null"에서  name은 ${name}의 name을 뜻한다.
+    AND id like '%${id}%'
+  </if>
+  <if test="author != null and member.name != null">
+    AND member_name like #{member.name}
+  </if>
+</select>
+
+- switch
+
+<select id="findActiveBlogLike" 
+     resultType="Blog">
+  SELECT * FROM BLOG WHERE state = ‘ACTIVE’
+  <choose>
+    <when test="title != null">
+      AND title like #{title}
+    </when>
+    <when test="author != null and author.name != null">
+      AND author_name like #{author.name}
+    </when>
+    <otherwise>
+      AND featured = 1
+    </otherwise>
+  </choose>
+</select>
+
+
+-foreach (공통적으로 필요한 것은 collection 에 대해 반복처리를 하는 것)
+
+<select id="selectPostIn" resultType="domain.blog.Post">
+  SELECT *
+  FROM POST P
+  WHERE ID in
+  <foreach item="item" index="index" collection="list"
+      open="(" separator="," close=")">
+        #{item}
+  </foreach>
+</select>
