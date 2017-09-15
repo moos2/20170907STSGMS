@@ -38,7 +38,7 @@ public class HomeController {
 		/*SessionAttributes의 이름(path)와 같은 이름을 갖는 객체를 추가해줘야 model의 어트리뷰트가 세션에 담긴다.*/
 		model.addAttribute("path", PathFactory.create());
 		
-		return "public:common/home.tiles";
+		return "index";
 	}
 	
 }
