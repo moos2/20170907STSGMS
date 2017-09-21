@@ -17,9 +17,9 @@
 		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd
 		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-4.3.xsd">
 	
-	<!-- context:annotation-config가 @Autowired를 생성한다. -->
+	<!-- context:annotation-config가 @Autowired를 생성한다.@component, @controller 등의 어노테이션이 걸린 곳을 돌아다닌다.-->
 	<context:annotation-config/>
-	<!-- mvc:annotation-driven태그가 HandlerMapping과 HandlerAdpter를 설정해준다. -->
+	<!-- mvc:annotation-driven태그가 HandlerMapping과 HandlerAdpter를 설정해준다. @requestmapping이 걸린 곳을 돌아다닌다. -->
 	<mvc:annotation-driven />
 	<!-- @Transactional을 적용할 수 있게 해준다. -->
 	<tx:annotation-driven/>

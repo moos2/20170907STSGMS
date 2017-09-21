@@ -18,6 +18,6 @@
 	<div id="wrapper"></div>
 </body>
 <script>
-	meta.common.init('${path.ctx}');
+meta.common.init('${path.ctx}');
 </script>
 </html>
