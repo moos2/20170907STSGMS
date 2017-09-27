@@ -10,9 +10,9 @@ public interface MemberService {
 	public int addMember(Map<?,?> map);
 	public List<?> list(CommandDTO cmd); //목록을 가져와서 보여주기
 	public List<?> findByName(CommandDTO cmd);
-	public StudentDTO findById(CommandDTO cmd);
+	public Student findById(CommandDTO cmd);
 	public String count();
-	public int modify(MemberDTO cmd);
+	public int modify(Member cmd);
 	public int remove(CommandDTO cmd);
 	public Map<String, Object> login(CommandDTO cmd);
 }

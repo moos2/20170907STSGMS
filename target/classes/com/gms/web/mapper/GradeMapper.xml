@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.gms.web.mapper.GradeMapper">
-<insert id="insertMajor" parameterType="java.util.List">
+<!-- <insert id="insertMajor" parameterType="java.util.List">
 	insert into Major(
 		major_id,
 		subj_id,
@@ -19,5 +19,5 @@
 		'${i.memberId}'
 	)
 	</foreach> 
-</insert> 
+</insert>  -->
 </mapper>

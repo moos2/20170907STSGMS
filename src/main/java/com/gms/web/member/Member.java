@@ -8,7 +8,7 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Lazy @Component @Data
-public class MemberDTO{
+public class Member{
 	private String memberId,password,name,ssn,regdate,email,phone,profile;
 	//private Map<String, Object> major,subject;
 	

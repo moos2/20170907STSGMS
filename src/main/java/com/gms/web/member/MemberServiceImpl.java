@@ -22,7 +22,7 @@ public class MemberServiceImpl implements MemberService {
 	private static final Logger logger = LoggerFactory.getLogger(MemberServiceImpl.class);
 	@Autowired MemberMapper mMapper;
 	@Autowired CommandDTO cmd;
-	@Autowired MemberDTO member;
+	@Autowired Member member;
 	@Autowired MajorDTO major;
 	@Autowired SubjectDTO subj;
 	@Autowired GradeMapper gMapper;
@@ -34,7 +34,7 @@ public class MemberServiceImpl implements MemberService {
 		logger.info("넘어온 수강과목:"+map.toString());
 		@SuppressWarnings("unchecked")
 		List<MajorDTO> list=(List<MajorDTO>) map.get("list");
-		member=(MemberDTO) map.get("member");
+		member=(Member) map.get("member");
 		major=(MajorDTO) map.get("major");
 		mMapper.insert(member);
 		gMapper.insertMajor(list);
@@ -55,7 +55,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public StudentDTO findById(CommandDTO cmd) {
+	public Student findById(CommandDTO cmd) {
 		return mMapper.selectById(cmd);
 	}
 
@@ -67,7 +67,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public int modify(MemberDTO member) {
+	public int modify(Member member) {
 		return mMapper.update(member);
 	}
 

@@ -6,6 +6,6 @@ import org.springframework.stereotype.Component;
 import lombok.Data;
 
 @Lazy @Component @Data
-public class StudentDTO {
+public class Student {
  private String num,id,name,password,ssn,regdate,phone,email,title;
 }

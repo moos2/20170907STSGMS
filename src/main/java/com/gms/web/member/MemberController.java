@@ -29,14 +29,14 @@ import com.gms.web.proxy.PageProxy;
 public class MemberController {
 		private static final Logger logger = LoggerFactory.getLogger(MemberController.class);
 		@Autowired MemberService service;
-		@Autowired MemberDTO member;
+		@Autowired Member member;
 		@Autowired CommandDTO cmd;
 		@Autowired MajorDTO major;
 		@Autowired PageProxy pxy;
 		
 		@RequestMapping(value="/add",method=RequestMethod.POST)
 		public String addStudent(
-				@ModelAttribute MemberDTO member,
+				@ModelAttribute Member member,
 				@RequestParam("subject") List<String> list
 				) {
 			logger.info("memberController-add로 진입!!");
@@ -102,7 +102,7 @@ public class MemberController {
 				}
 			}
 			
-			List<StudentDTO> list = (List<StudentDTO>) service.list(cmd);
+			List<Student> list = (List<Student>) service.list(cmd);
 			System.out.println("리스트 결과: "+list);
 			pxy.execute(model, result, list);
 			return "auth:member/member_list.tiles";
@@ -151,7 +151,7 @@ public class MemberController {
 			}
 			
 			@SuppressWarnings("unchecked")
-			List<StudentDTO> list = (List<StudentDTO>) service.findByName(cmd);
+			List<Student> list = (List<Student>) service.findByName(cmd);
 			System.out.println("서치 리스트 결과: "+list);
 			pxy.execute(model, result, list);
 			logger.info("search controller에서 불러온 리스트"+service.findByName(cmd));
@@ -189,7 +189,7 @@ public class MemberController {
 		
 		@RequestMapping(value="/update", method=RequestMethod.POST)
 		public String update(
-				@ModelAttribute MemberDTO studentUpdate
+				@ModelAttribute Member studentUpdate
 				) {
 			logger.info("멤버 컨트롤러 UPDATE로 진입!");
 			logger.info("UPDATE로 넘어온 바꿀 이메일: "+studentUpdate.getEmail());

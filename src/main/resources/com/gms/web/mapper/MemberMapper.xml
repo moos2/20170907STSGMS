@@ -21,8 +21,8 @@
   
 <mapper namespace="com.gms.web.mapper.MemberMapper">
 
-<insert id="insert" parameterType="com.gms.web.member.MemberDTO">
-	insert into member(
+<insert id="insert" parameterType="com.gms.web.member.Member">
+<!-- 	insert into member(
 		member_id,
 		name,
 		password,
@@ -41,44 +41,39 @@
 		#{phone},
 		#{email},
 		#{profile}
-	)
+	) -->
 </insert>
 
 <select id="count" resultType="string">
-	select count(*) as count from member
+	<!-- select count(*) as count from member -->
 </select>
 
-<select id="login" resultType="com.gms.web.member.MemberDTO" parameterType="com.gms.web.command.CommandDTO">
+<select id="login" resultType="com.gms.web.member.Member" parameterType="com.gms.web.command.Command">
 	<!-- 아스타를 찍지말고 컬럼명을 하나씩 다 적어주는게 유지보수에 좋다. -->
-	select member_id, name, password, ssn, regdate, phone, email, profile from member where member_id like #{search}
+	<!-- select member_id, name, password, ssn, regdate, phone, email, profile from member where member_id like #{search} -->
 </select>
 
-<select id="selectAll" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
-	select k.*
+<select id="selectSome" resultType="com.gms.web.member.Student" parameterType="com.gms.web.command.Command">
+	<!-- select k.*
 	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b) k 
-	where num between #{startRow} and #{endRow}
+	where num between #{startRow} and #{endRow} -->
 </select>
 
-<select id="selectByName" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
-	select k.*
-	from (SELECT @rownum:=@rownum+1 AS num,t.* from student t, (select @rownum:=0) b where t.name like '%${search}%' ) k 
-	where num between #{startRow} and #{endRow}
-</select>
 
-<select id="selectById" resultType="com.gms.web.member.StudentDTO" parameterType="com.gms.web.command.CommandDTO">
-SELECT * 
+<select id="selectOne" resultType="com.gms.web.member.Student" parameterType="com.gms.web.command.Command">
+<!-- SELECT * 
 from student
-where id like '%${column}%'
+where id like '%${column}%' -->
 </select>
 
 
-<update id="update" parameterType="com.gms.web.member.MemberDTO">
-	update Member set email = #{email} , phone = #{phone} where member_id like #{member_id}
+<update id="update" parameterType="com.gms.web.member.Member">
+	<!-- update Member set email = #{email} , phone = #{phone} where member_id like #{member_id} -->
 </update>
 
 
-<delete id="delete"  parameterType="com.gms.web.command.CommandDTO">
-	delete mem,maj from member mem join major maj on mem.member_id like maj.member_id where mem.member_id like #{search}
+<delete id="delete"  parameterType="com.gms.web.command.Command">
+	<!-- delete mem,maj from member mem join major maj on mem.member_id like maj.member_id where mem.member_id like #{search} -->
 </delete>
 	
 	

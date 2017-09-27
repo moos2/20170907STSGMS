@@ -1,85 +1,98 @@
-//객체 리터럴 방식
-//'=>' 람다식
 var series={
 		arithmetic : (s,e)=>{
 			var sum=0;
-			var startnum=s*1;
-			var endnum=e*1;
-			for(var i =startnum;i<=endnum;i++){
+			var start=s*1;
+			var end=e*1;
+			for(var i=start;i<=end;i++){
 				sum+=i;
 			}
 			return sum;
-	},
-	switchSeries : function(s,e){
-		var sum=0;
-		var sw=0;
-		var startnum=s*1;
-		var endnum=e*1;
-		for(var i=startnum;i<endnum;i++){
-			if(sw==0){
-				sum=sum-i;
-				sw=1;
-			}else{
-				sum = sum+i;
-				sw=0;
+		},
+		switchSeries : ()=>{
+			// 1 - 2 + 3 - 4 +...-100
+			var sum=0;
+			var i=0;
+			var sw=0;
+			do{
+				i++;
+				if(sw==0){
+					sum += i;
+					sw = 1;
+					
+				}else{
+					sum -= i;
+					sw = 0;
+				}
+			}while(i<100);
+			return sum;
+			
+		},
+		diffSeries : x=>{
+			
+		},
+		factorial : ()=>{
+			
+		},
+		fibonacci : (x)=>{
+			alert('확인 -->'+x);
+		}
+}
+var sort={
+		selection : (x)=>{
+			console.log('start : '+x);
+			var i=0,j=0,k=0;
+			for(i=0;i<x.length;i++){
+				for(j=i;j<x.length;j++){
+					if(x[i]*1>x[j+1]*1){
+						k=x[i];
+						x[i]=x[j+1];
+						x[j+1]=k;
+						console.log('j'+j);
+					}
+					console.log('z'+j);
+				}
+			}
+			console.log('end : '+x);
+			return x;
+			},
+		bubble : x=>{
+			console.log('start : '+x);
+			var i=0,j=0,k=0;
+			for(i=0;i<x.length;i++){
+				for(j=0;j<x.length;j++){
+					if(x[j]*1>x[j+1]*1){
+						k=x[j];
+						x[j]=x[j+1];
+						x[j+1]=k;
+					}
+				}
+			}
+			console.log('end : '+x);
+			return x;
+		},
+		insertion : ()=>{
+			for(var i=0;i<arr.length;i++){
+				for(var j=0;j<arr.length-1;i++){
+					if(a>b){
+						c=arr[i];
+						arr[i]=arr[i+1];
+						arr[i+1]=c;
+					}
+				}
+			}
+		},
+		ranking : ()=>{
+			for(var i=0;i<arr.length;i++){
+				for(var j=0;j<arr.length-1;i++){
+					if(a>b){
+						c=arr[i];
+						arr[i]=arr[i+1];
+						arr[i+1]=c;
+					}
+				}
 			}
 		}
-		return sum;
-	},
-	geometric:(a,r,n)=>{
-		//a + ar^1 + ar^2 + ... + ar^n
-		//first term, geometric ratio, n term
-		var gp;
-        var ac,rc,nc;
-        at=a; 
-        gr=r; 
-        nt=n;
-        nt=n-1;
-        gp=at*(Math.pow(gr,nt));
-        return gp;
-	},
-	differseq:(i,j,n)=>{
-		var sum=1;
-		var incr=(i*1)-1;
-		var jj=j*1;
-		do{
-			incr++;
-			jj+=incr;
-			sum+=jj;
-		}while(incr<n-1);
-		return "jj는: "+jj+"\n총합계: "+sum;
-	},
-	factorial:(i,j,n)=>{
-		var sum=i*1;
-		var ii=i*1;
-		var jj=j*1;
-		do{
-			ii++;
-			jj*=ii;
-			sum+=jj;
-		}while(ii<n);
-		return sum;
-	},
-	fibonacci:(n)=>{
-		var hap= 0;
-		var cnt=0;
-		var c=0;
-		var a=1;
-		var b=1;
-		var nn=n*1;
-		hap=2;
-		cnt=2;
-		while(1){
-			c=a+b;
-			hap+=c;
-			cnt++;
-			if(cnt<nn){
-				a=b;
-				b=c;
-			}else{
-				break;
-			}
-		}
-		return hap;
-	}
-};
+}
+var mtx={}
+var math={}
+var appl={}

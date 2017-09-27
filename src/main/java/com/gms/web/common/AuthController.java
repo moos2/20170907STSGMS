@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.SessionAttributes;
 
 import com.gms.web.command.CommandDTO;
-import com.gms.web.member.MemberDTO;
+import com.gms.web.member.Member;
 import com.gms.web.member.MemberService;
 
 // authentification (권한 )로그인을 담당하는 컨트롤러
@@ -28,7 +28,7 @@ public class AuthController {
 	//compile이 되면 .java가 되는데, 이것을 인지 하지 못한다. 따라서 .class를 붙여준다
 	private static final Logger logger = LoggerFactory.getLogger(AuthController.class);
 	@Autowired MemberService service;
-	@Autowired MemberDTO bean;
+	@Autowired Member bean;
 	@Autowired CommandDTO cmd;
 	//separator
 	@RequestMapping("/login_view")
